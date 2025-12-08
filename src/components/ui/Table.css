@@ -1,0 +1,14 @@
+.ui-table-wrap { background: transparent; border-radius: 10px; padding: 8px; }
+.ui-table-search { padding: 8px 0; }
+.ui-table-search input { width: 100%; padding:8px 12px; border-radius:8px; border:1px solid #e2e8f0; }
+
+.ui-table { width:100%; border-collapse: collapse; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.03); }
+.ui-table thead th { text-align:left; padding: 12px 16px; background: var(--lightprimary); color: var(--textDark); font-size: 13px; }
+.ui-table tbody td { padding: 12px 16px; border-top: 1px solid #f1f5f9; color: var(--textGrey); }
+.ui-table tbody tr.clickable:hover { background: #fbfdfe; cursor: pointer; }
+.ui-table .sortable { cursor: pointer; user-select:none; }
+.ui-table .sort-ind { font-size: 12px; color: #475569; margin-left:8px; }
+
+.ui-table-footer { display:flex; justify-content:space-between; align-items:center; padding:10px 8px; color:var(--textGrey); font-size:13px; }
+.ui-table-pager button { margin: 0 4px; padding:6px 8px; border-radius:6px; border:1px solid #e6eef0; background:white; cursor:pointer; }
+.ui-table .empty { text-align:center; padding:24px; color:var(--textGrey); }

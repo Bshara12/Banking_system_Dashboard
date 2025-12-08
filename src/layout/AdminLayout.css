@@ -1,0 +1,140 @@
+.layout-wrapper {
+  display: flex;
+  background: var(--background);
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Sidebar */
+.sidebar {
+  background: var(--primary);
+  color: white;
+  padding: 20px 10px;
+  height: 100vh;
+  transition: width 0.3s ease-in-out;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.sidebar-logo {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+.toggle-btn {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: white;
+  cursor: pointer;
+}
+
+.sidebar-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.menu-item {
+  color: white;
+  padding: 12px 15px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 15px;
+  display: flex;
+  gap: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: 0.25s ease-in-out;
+}
+
+.menu-item:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* إخفاء النص عند إغلاق السايد بار */
+.sidebar .menu-item .label {
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.sidebar.collapsed .menu-item .label {
+  opacity: 0;
+  transform: translateX(-6px);
+  pointer-events: none;
+}
+
+/* ستايل مميز للرابط النشط */
+.menu-item.active {
+  background: linear-gradient(90deg, #2f5f61, #48696b); /* لون أوضح */
+  color: #fff;
+  font-weight: 700;
+  border-left: 4px solid #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  transform: scale(1.05);
+}
+
+/* Main Content */
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.header {
+  height: 70px;
+  background: var(--card-light);
+  border-bottom: 1px solid var(--border);
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.page-title {
+  color: var(--primary);
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.notif-btn,
+.logout-btn {
+  background: var(--primary);
+  color: white;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.notif-btn:hover,
+.logout-btn:hover {
+  opacity: 0.85;
+}
+
+/* Body content */
+.page-body {
+  padding: 25px;
+  overflow-y: auto;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .layout-wrapper {
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,24 @@
+:root {
+  --primary: #2f5f61;
+  --light-primary: #f0faf9;
+
+  --background: #f9fafb;
+  --form: #f3f4f6;
+  --border: #9ca3af;
+
+  --card-light: #ffffff;
+  --card-dark: #1e293b;
+
+  --text-dark: #111827;
+  --text-grey: #6b7280;
+
+  --success: #22c55e;
+  --warning: #facc15;
+  --error: #dc2626;
+}
+
+body {
+  background: var(--background);
+  color: var(--text-dark);
+  font-family: Inter, "Segoe UI", Roboto, Arial;
+}

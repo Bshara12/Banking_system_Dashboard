@@ -1,0 +1,86 @@
+/* الخلفية الشفافة */
+.account-details-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+/* المودال */
+.account-details-modal {
+  background: var(--card-light);
+  width: 520px;
+  max-height: 85vh;
+  overflow-y: auto;
+  padding: 25px;
+  border-radius: 14px;
+  box-shadow: 0px 6px 25px rgba(0, 0, 0, 0.18);
+  position: relative;
+  animation: fadeIn 0.25s ease-in-out;
+}
+
+.account-details-modal h3 {
+  margin-bottom: 8px;
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.account-details-modal h4 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 17px;
+  color: var(--text-dark);
+}
+
+/* زر الإغلاق */
+.account-details-modal .close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 24px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--primary);
+  transition: 0.2s;
+}
+
+.account-details-modal .close:hover {
+  transform: scale(1.15);
+  color: var(--error);
+}
+
+/* قائمة الأبناء */
+.account-details-modal ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.account-details-modal li {
+  background: var(--form);
+  padding: 12px;
+  border-radius: 10px;
+  margin-bottom: 8px;
+  color: var(--text-dark);
+  font-size: 14px;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.93);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
