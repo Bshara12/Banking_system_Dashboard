@@ -144,3 +144,60 @@
   color: var(--text-grey);
   margin-bottom: 6px;
 }
+
+/* زر تغيير الحالة */
+.status-btn {
+  background: var(--warning); /* لون أصفر مميز */
+  color: #111;
+  padding: 8px 14px;
+  margin-left: 10px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: 0.2s ease;
+}
+
+
+.status-btn:hover {
+  background: #eab308; /* أغمق شوي */
+  transform: translateY(-2px);
+}
+
+/* Badges حسب الحالة */
+.status-badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+/* Active */
+.status-badge.status-active {
+  background: var(--success);
+  color: #fff;
+}
+
+/* Frozen */
+.status-badge.status-frozen {
+  background: var(--warning);
+  color: #111;
+}
+
+/* Suspended */
+.status-badge.status-suspended {
+  background: #3b82f6; /* أزرق */
+  color: #fff;
+}
+
+/* Closed */
+.status-badge.status-closed {
+  background: var(--error);
+  color: #fff;
+}

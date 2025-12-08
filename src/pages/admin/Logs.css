@@ -1,0 +1,125 @@
+.logs-container {
+  padding: 20px;
+}
+
+.logs-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 20px;
+}
+
+.logs-filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.input {
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  background: var(--form);
+  border-radius: 6px;
+}
+
+.filter-btn {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 8px 18px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.filter-btn:hover {
+  opacity: 0.9;
+}
+
+.logs-table-wrapper {
+  background: var(--card-light);
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.logs-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.logs-table th {
+  text-align: left;
+  padding: 10px;
+  background: var(--lightprimary);
+  color: var(--primary);
+}
+
+.logs-table td {
+  padding: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.action-badge {
+  background: var(--lightprimary);
+  color: var(--primary);
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.pagination button {
+  padding: 6px 12px;
+  background: var(--primary);
+  color: white;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+}
+
+.pagination button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+
+.logs-tools {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.btn-export,
+.btn-user {
+  background: var(--primary);
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-export:hover,
+.btn-user:hover {
+  opacity: 0.9;
+}
+
+.selected-user-badge {
+  background: var(--lightprimary);
+  color: var(--primary);
+  padding: 6px 12px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.selected-user-badge span {
+  cursor: pointer;
+}
