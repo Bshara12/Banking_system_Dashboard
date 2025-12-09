@@ -18,6 +18,18 @@ export const transactionsApi = {
     return axios.get("/admin/stats/transactions-24h");
   },
 
+  transactionRequests() {
+    return axios.get("show-transactions");
+  },
+
+  approve(id) {
+    return axios.post(`transaction/${id}/approve`);
+  },
+
+  reject(id) {
+    return axios.post(`transaction/${id}/reject`);
+  },
+
   // لو في API إضافي لاحقاً
   getById(id) {
     return axios.get(`/transaction/${id}`);
@@ -29,5 +41,5 @@ export const transactionsApi = {
 
   updateStatus(id, statusName) {
     return axios.post(`/transaction/${id}/status`, { status: statusName });
-  }
+  },
 };

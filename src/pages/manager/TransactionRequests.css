@@ -1,0 +1,97 @@
+.accounts-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Table */
+.accounts-table {
+  background: var(--card-light);
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table thead {
+  background: var(--primary);
+  color: #fff;
+}
+
+.table th {
+  padding: 14px 10px;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.table td {
+  padding: 14px 10px;
+  font-size: 14px;
+  border-bottom: 1px solid var(--form);
+  color: var(--text-dark);
+  text-align: center;
+}
+
+.table tbody tr:hover {
+  background: var(--light-primary);
+  transition: background 0.2s ease;
+}
+
+/* Status Badge */
+.status-badge {
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+}
+
+.status-badge.pending {
+  background: var(--warning);
+  color: #111;
+}
+
+.status-badge.approved {
+  background: var(--success);
+  color: #fff;
+}
+
+.status-badge.rejected {
+  background: var(--error);
+  color: #fff;
+}
+
+/* Buttons */
+.btn {
+  background: var(--primary);
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  transition: 0.2s ease;
+}
+
+.status-btn {
+  background: var(--error);
+  color: #fff;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-size: 13px;
+  transition: 0.2s ease;
+}
