@@ -84,11 +84,11 @@ export default function AdminLayout({ children }) {
           </NavLink>
 
           <NavLink
-            to="/admin/support"
-            className={itemClass("/admin/support")}
-            onClick={() => setActivePath("/admin/support")}
+            to="/admin/manager"
+            className={itemClass("/admin/manager")}
+            onClick={() => setActivePath("/admin/manager")}
           >
-            🎧 <span className="label">Support</span>
+            🎧 <span className="label">Manager</span>
           </NavLink>
         </nav>
       </motion.div>

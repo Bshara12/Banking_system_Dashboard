@@ -12,21 +12,6 @@ function Login() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  // const handleLogin = async (e) => {
-  //   e.preventDefault();
-  //   setError("");
-  //   setLoading(true);
-
-  //   try {
-  //     await login({ identifier, password });
-  //     navigate("/شسي");
-  //   } catch (err) {
-  //     setError(err.message);
-  //   }
-
-  //   setLoading(false);
-  // };
-
   const handleLogin = async (e) => {
     e.preventDefault();
 
@@ -41,10 +26,10 @@ function Login() {
         case 2:
           navigate("/manager");
           break;
-        case 3:
+        case 4:
           navigate("/teller");
           break;
-        case 4:
+        case 5:
           navigate("/support");
           break;
         default:
