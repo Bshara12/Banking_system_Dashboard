@@ -3,7 +3,7 @@ import axios from "./axiosClient";
 
 export const transactionsApi = {
   listAll() {
-    return axios.get("/show-transactions");
+    return axios.get("/transactions/all");
   },
 
   weekly() {
@@ -17,17 +17,17 @@ export const transactionsApi = {
   stats24h() {
     return axios.get("/admin/stats/transactions-24h");
   },
-
+  
   // لو في API إضافي لاحقاً
-  getById(id) {
-    return axios.get(`/transaction/${id}`);
-  },
+  // getById(id) {
+  //   return axios.get(`/transaction/${id}`);
+  // },
 
-  retryTransaction(id) {
-    return axios.post(`/transaction/${id}/retry`);
-  },
+  // retryTransaction(id) {
+  //   return axios.post(`/transaction/${id}/retry`);
+  // },
 
-  updateStatus(id, statusName) {
-    return axios.post(`/transaction/${id}/status`, { status: statusName });
-  }
+  // updateStatus(id, statusName) {
+  //   return axios.post(`/transaction/${id}/status`, { status: statusName });
+  // }
 };
