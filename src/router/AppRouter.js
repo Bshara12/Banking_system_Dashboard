@@ -10,6 +10,9 @@ import Transactions from "../pages/admin/transactions";
 import Logs from "../pages/admin/Logs";
 import Reports from "../pages/admin/Reports";
 import ManagerPage from "../pages/admin/ManagerPage";
+import SupportLayout from "../layout/SupportLayout";
+import SupportTicketsPage from "../pages/support/SupportTicketsPage";
+import TicketChatPage from "../pages/support/TicketChatPage";
 
 export default function AppRouter() {
   const { user } = useAuth();
@@ -27,6 +30,11 @@ export default function AppRouter() {
         <Route path="/admin/logs" element={<Logs />} />
         <Route path="/admin/reports" element={<Reports />} />
         <Route path="/admin/manager" element={<ManagerPage />} />
+      </Route>
+      {/* supported Dashboard Layout */}
+      <Route path="/support" element={<SupportLayout />}>
+        <Route path="/support/tickets" element={<SupportTicketsPage />} />
+        <Route path="/support/tickets/:id" element={<TicketChatPage />} />
       </Route>
     </Routes>
   );

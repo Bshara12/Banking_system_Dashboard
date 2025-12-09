@@ -1,0 +1,40 @@
+.support-dashboard-container {
+  padding: 25px;
+}
+
+.support-title {
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+.support-cards {
+  display: flex;
+  gap: 20px;
+}
+
+.s-card {
+  flex: 1;
+  padding: 20px;
+  border-radius: 12px;
+  color: white;
+  text-align: center;
+  box-shadow: 0 3px 10px #0002;
+}
+
+.s-card h3 {
+  font-size: 34px;
+}
+
+.blue { background: #3498db; }
+.green { background: #2ecc71; }
+.gray { background: #7f8c8d; }
+
+.view-btn {
+  margin-top: 25px;
+  padding: 12px 20px;
+  background: #3498db;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
