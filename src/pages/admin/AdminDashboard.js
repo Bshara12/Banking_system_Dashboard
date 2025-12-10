@@ -25,7 +25,8 @@ import {
 
 import "./AdminDashboard.css";
 
-export default function AdminDashboard() {
+
+export default function AdminDashboard({ role }) {
   const [health, setHealth] = useState(null);
   const [weekly, setWeekly] = useState([]);
   const [status, setStatus] = useState([]);
@@ -73,6 +74,7 @@ export default function AdminDashboard() {
           <p className="stat-number">{todayTx ?? "-"}</p>
         </div>
 
+{/* <<<<<<< HEAD
         <div className="stat-card">
           <h3>Database</h3>
           {health && <p className="stat-number">{health.db.status}</p>}
@@ -88,6 +90,25 @@ export default function AdminDashboard() {
         </div>
       </div>
 
+======= */}
+        {role === "admin" && (
+          <>
+            <div className="stat-card">
+              <h3>Database</h3>
+              {health && <p className="stat-number">{health.db.status}</p>}
+            </div>
+
+            <div className="stat-card">
+              <h3>Queue Status</h3>
+              {health && (
+                <p className="stat-number">
+                  {health.queue.status} ({health.queue.failed_jobs} fails)
+                </p>
+              )}
+            </div>
+          </>
+        )}
+      </div>
       {/* =================== CHARTS =================== */}
       {/* <div className="chart-section">
           <div className="chart-card">
@@ -174,6 +195,37 @@ export default function AdminDashboard() {
             <Tooltip />
           </PieChart>
         </div>
+{/* =======
+            />
+          </LineChart>
+        </div>
+
+        {/* STATUS PIE CHART */}
+        {/* <div className="chart-card">
+          <h3>Transactions Status</h3>
+          <PieChart width={450} height={250}>
+            <Pie
+              data={status}
+              dataKey="count"
+              nameKey="status"
+              cx="50%"
+              cy="50%"
+              outerRadius={80}
+              fill="#8884d8"
+              label
+            >
+              {status.map((entry, i) => (
+                <Cell
+                  key={i}
+                  fill={entry.status === "succeeded" ? "#4CAF50" : "#F44336"}
+                />
+              ))}
+            </Pie>
+            <Legend />
+            <Tooltip />
+          </PieChart>
+        </div> */}
+
       </div>
 
       {/* =================== TOP CUSTOMERS =================== */}

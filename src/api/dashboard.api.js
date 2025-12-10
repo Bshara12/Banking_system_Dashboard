@@ -20,4 +20,10 @@ export const getAccountsToday = () =>
 export const getTransactions24h = () =>
   axiosClient.get("/admin/stats/transactions-24h");
 
+export const loadEmployees = () => axiosClient.get("/admin/getEmployees");
+export const createEmployee = (body) =>
+  axiosClient.post("/admin/createEmployee", body);
+
+export const removeEmployee = (id) => axiosClient.delete  (`/admin/removeuser/${id}`);
+
 export const getRecentLogs = () => axiosClient.get("/admin/logs?per_page=5");

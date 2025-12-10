@@ -4,8 +4,8 @@ import { accountsApi } from "../../api/accounts.api";
 import "./Accounts.css";
 import AccountDetails from "./AccountDetails";
 import ChangeStatusModal from "./components/ChangeStatusModal";
-
-export default function Accounts() {
+import Button from "../../components/ui/Button";
+export default function Accounts({ role }) {
   const [accounts, setAccounts] = useState([]);
   const [types, setTypes] = useState([]);
   const [statuses, setStatuses] = useState([]);
@@ -16,7 +16,6 @@ export default function Accounts() {
   const [statusFilter, setStatusFilter] = useState("");
 
   const [selectedAccount, setSelectedAccount] = useState(null);
-  const [statusModal, setStatusModal] = useState(null);
   const [statusModalAcc, setStatusModalAcc] = useState(null);
 
   useEffect(() => {
@@ -92,37 +91,48 @@ export default function Accounts() {
   return (
     <div className="accounts-container">
       {/* =================== TOP FILTERS ====================== */}
-      <div className="accounts-topbar">
-        <input
-          placeholder="Search account number / owner / email..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="search-input"
-        />
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <div className="accounts-topbar">
+          <input
+            placeholder="Search account number / owner / email..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="search-input"
+          />
 
-        <select
-          value={typeFilter}
-          onChange={(e) => setTypeFilter(e.target.value)}
-        >
-          <option value="">All types</option>
-          {types.map((t) => (
-            <option key={t.id} value={t.id}>
-              {t.name}
-            </option>
-          ))}
-        </select>
+          <select
+            value={typeFilter}
+            onChange={(e) => setTypeFilter(e.target.value)}
+          >
+            <option value="">All types</option>
+            {types.map((t) => (
+              <option key={t.id} value={t.id}>
+                {t.name}
+              </option>
+            ))}
+          </select>
 
-        <select
-          value={statusFilter}
-          onChange={(e) => setStatusFilter(e.target.value)}
-        >
-          <option value="">All statuses</option>
-          {statuses.map((s) => (
-            <option key={s.id} value={s.id}>
-              {s.name}
-            </option>
-          ))}
-        </select>
+          <select
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+          >
+            <option value="">All statuses</option>
+            {statuses.map((s) => (
+              <option key={s.id} value={s.id}>
+                {s.name}
+              </option>
+            ))}
+          </select>
+        </div>
+        {role === "manager" && (
+          <Button onClick={() => console.log("Clicked!")}>Add Account</Button>
+        )}
       </div>
 
       {/* =================== GRID ====================== */}
