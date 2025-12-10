@@ -88,7 +88,7 @@ export default function AdminLayout({ children }) {
             className={itemClass("/admin/manager")}
             onClick={() => setActivePath("/admin/manager")}
           >
-            🎧 <span className="label">Manager</span>
+            🧑‍💼 <span className="label">Manager</span>
           </NavLink>
         </nav>
       </motion.div>

@@ -21,7 +21,6 @@ export default function SupportLayout() {
 
   return (
     <div className="layout-wrapper">
-      
       {/* Sidebar */}
       <motion.div
         animate={{ width: open ? 250 : 80 }}
@@ -42,27 +41,32 @@ export default function SupportLayout() {
 
         <nav className="sidebar-menu">
           <NavLink
-            to="/support"
-            end
-            className={itemClass("/support")}
-            onClick={() => setActivePath("/support")}
-          >
-            🏠 <span className="label">Dashboard</span>
-          </NavLink>
-
-          <NavLink
             to="/support/tickets"
             className={itemClass("/support/tickets")}
             onClick={() => setActivePath("/support/tickets")}
           >
             🎫 <span className="label">Tickets</span>
           </NavLink>
+          <NavLink
+            to="/support/accounts"
+            className={itemClass("/support/accounts")}
+            onClick={() => setActivePath("/support/accounts")}
+          >
+            💳 <span className="label">Accounts</span>
+          </NavLink>
+          <NavLink
+            to="/support/transaction"
+            end
+            className={itemClass("/support/transaction")}
+            onClick={() => setActivePath("/support/transaction")}
+          >
+            📊 <span className="label">transaction</span>
+          </NavLink>
         </nav>
       </motion.div>
 
       {/* Main content */}
       <div className="main-content">
-        
         <header className="header">
           <div className="header-left">
             <h1 className="page-title">Hello, {user?.name}</h1>
@@ -79,7 +83,6 @@ export default function SupportLayout() {
         <div className="page-body">
           <Outlet />
         </div>
-
       </div>
     </div>
   );

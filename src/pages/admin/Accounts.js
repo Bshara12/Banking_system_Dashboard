@@ -179,12 +179,20 @@ export default function Accounts({ role }) {
                         View
                       </button>
 
-                      <button
+                      {/* <button
                         className="status-btn"
                         onClick={() => openStatusModal(acc)}
                       >
                         Change Status
-                      </button>
+                      </button> */}
+                      {role !== "support" && (
+                        <button
+                          className="status-btn"
+                          onClick={() => openStatusModal(acc)}
+                        >
+                          Change Status
+                        </button>
+                      )}
                     </td>
                   </tr>
                 ))}

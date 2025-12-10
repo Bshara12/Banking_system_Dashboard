@@ -49,7 +49,7 @@ export default function SupportTicketsPage() {
 
           <select value={filter} onChange={(e) => setFilter(e.target.value)}>
             <option value="all">All</option>
-            <option value="open">Open</option>
+            {/* <option value="open">Open</option> */}
             <option value="read">Read</option>
             <option value="sended">Sent</option>
           </select>
