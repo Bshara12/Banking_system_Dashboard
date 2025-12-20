@@ -201,3 +201,58 @@
   background: var(--error);
   color: #fff;
 }
+.features-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.feature-badge {
+  display: inline-flex;
+  align-items: center;
+  background: #f3f4f6;
+  color: #374151;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  position: relative;
+  transition: background 0.2s ease;
+}
+
+.feature-badge:hover {
+  background: #e5e7eb;
+}
+
+.feature-badge .remove-btn {
+  background: transparent;
+  border: none;
+  color: #ef4444;
+  font-size: 14px;
+  margin-left: 6px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.feature-badge:hover .remove-btn {
+  opacity: 1;
+}
+
+/* قائمة الإضافة */
+select {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 13px;
+  background: #fff;
+  color: #374151;
+  transition: border 0.2s ease;
+}
+
+select:focus {
+  border-color: var(--primary);
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(59,130,246,0.3);
+}

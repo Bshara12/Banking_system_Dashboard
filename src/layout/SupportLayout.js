@@ -2,13 +2,14 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import "./AdminLayout.css";
 import { useAuth } from "../hooks/useAuth";
-import { NavLink, Outlet, useLocation } from "react-router-dom";
+import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 
 export default function SupportLayout() {
   const [open, setOpen] = useState(true);
   const { user, logout } = useAuth();
   const location = useLocation();
   const [activePath, setActivePath] = useState(location.pathname);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setActivePath(location.pathname);
@@ -21,7 +22,6 @@ export default function SupportLayout() {
 
   return (
     <div className="layout-wrapper">
-      
       {/* Sidebar */}
       <motion.div
         animate={{ width: open ? 250 : 80 }}
@@ -62,14 +62,18 @@ export default function SupportLayout() {
 
       {/* Main content */}
       <div className="main-content">
-        
         <header className="header">
           <div className="header-left">
             <h1 className="page-title">Hello, {user?.name}</h1>
           </div>
 
           <div className="header-right">
-            <button className="notif-btn">🔔</button>
+            <button
+              className="notif-btn"
+              onClick={() => navigate("/notifications")}
+            >
+              🔔
+            </button>
             <button className="logout-btn" onClick={logout}>
               Logout
             </button>
@@ -79,7 +83,6 @@ export default function SupportLayout() {
         <div className="page-body">
           <Outlet />
         </div>
-
       </div>
     </div>
   );

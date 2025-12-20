@@ -24,6 +24,14 @@ export const loadEmployees = () => axiosClient.get("/admin/getEmployees");
 export const createEmployee = (body) =>
   axiosClient.post("/admin/createEmployee", body);
 
-export const removeEmployee = (id) => axiosClient.delete  (`/admin/removeuser/${id}`);
+export const removeEmployee = (id) =>
+  axiosClient.delete(`/admin/removeuser/${id}`);
+
+export const getAccountUser = (id) =>
+  axiosClient.post("/admin/getAccountUser", { account_number: id });
+
+export const transaction = (body) => axiosClient.post("/transaction", body);
+
+export const notifications = () => axiosClient.get("/getNotifications");
 
 export const getRecentLogs = () => axiosClient.get("/admin/logs?per_page=5");

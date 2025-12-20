@@ -17,6 +17,10 @@ export const accountsApi = {
   getTypes: () => axiosClient.get("/account/types/all"),
   getStatuses: () => axiosClient.get("/account/statuses/all"),
   create: (payload) => axiosClient.post("/account", payload),
+  addFeature: (id, feature) =>
+    axiosClient.post(`/accounts/${id}/features`, { feature }),
+  removeFeature: (id, feature) =>
+    axiosClient.delete(`/accounts/${id}/features/${feature}`),
 
   // 🔥 ضيفها هون
   updateAccountStatus: (id, body) =>

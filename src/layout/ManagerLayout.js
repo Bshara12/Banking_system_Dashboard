@@ -2,20 +2,23 @@ import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import "./AdminLayout.css";
 import { useAuth } from "../hooks/useAuth";
-import { NavLink, Outlet, useLocation } from "react-router-dom";
+import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 
 export default function ManagerLayout({ children }) {
   const [open, setOpen] = useState(true);
   const { user, logout } = useAuth();
   const location = useLocation();
   const [activePath, setActivePath] = useState(location.pathname);
+  const navigate = useNavigate();
 
   useEffect(() => {
     setActivePath(location.pathname);
   }, [location.pathname]);
 
   const itemClass = (path) =>
-    `menu-item ${activePath === path ? "active" : ""} ${!open ? "collapsed" : ""}`;
+    `menu-item ${activePath === path ? "active" : ""} ${
+      !open ? "collapsed" : ""
+    }`;
 
   return (
     <div className="layout-wrapper">
@@ -88,7 +91,6 @@ export default function ManagerLayout({ children }) {
           >
             📁 <span className="label">Logs</span>
           </NavLink>
-
         </nav>
       </motion.div>
 
@@ -101,7 +103,12 @@ export default function ManagerLayout({ children }) {
           </div>
 
           <div className="header-right">
-            <button className="notif-btn">🔔</button>
+            <button
+              className="notif-btn"
+              onClick={() => navigate("/notifications")}
+            >
+              🔔
+            </button>
             <button className="logout-btn" onClick={logout}>
               Logout
             </button>

@@ -1,10 +1,10 @@
-// src/pages/admin/Accounts.jsx
 import { useEffect, useState } from "react";
 import { accountsApi } from "../../api/accounts.api";
 import "./Accounts.css";
 import AccountDetails from "./AccountDetails";
 import ChangeStatusModal from "./components/ChangeStatusModal";
-import Button from "../../components/ui/Button";
+import { toast } from "react-toastify";
+
 export default function Accounts({ role }) {
   const [accounts, setAccounts] = useState([]);
   const [types, setTypes] = useState([]);
@@ -49,11 +49,10 @@ export default function Accounts({ role }) {
   }
 
   /** =============================
-   *  FILTERING
-   * =============================*/
+   - FILTERING
+   =============================*/
   const filtered = accounts.filter((a) => {
     const searchText = search.toLowerCase();
-
     if (search.length > 0) {
       return (
         a.number?.toLowerCase().includes(searchText) ||
@@ -70,22 +69,35 @@ export default function Accounts({ role }) {
   });
 
   /** =============================
-   *  HANDLERS
-   * =============================*/
-  // const openStatusModal = (acc) => {
-  //   setStatusModal(acc);
-  // };
-
-  // const refreshData = () => {
-  //   loadAll();
-  // };
-
+   - HANDLERS
+   =============================*/
   function openStatusModal(acc) {
     setStatusModalAcc(acc);
   }
-
   function closeStatusModal() {
     setStatusModalAcc(null);
+  }
+
+  // إضافة ميزة
+  async function addFeature(accountId, feature) {
+    try {
+      await accountsApi.addFeature(accountId, feature);
+      await loadAll();
+    } catch (err) {
+      toast.error("Failed to add feature");
+      console.error("add feature error", err);
+    }
+  }
+
+  // حذف ميزة
+  async function removeFeature(accountId, feature) {
+    try {
+      await accountsApi.removeFeature(accountId, feature);
+      await loadAll();
+    } catch (err) {
+      toast.error("Failed to remove feature");
+      console.error("remove feature error", err);
+    }
   }
 
   return (
@@ -105,7 +117,6 @@ export default function Accounts({ role }) {
             onChange={(e) => setSearch(e.target.value)}
             className="search-input"
           />
-
           <select
             value={typeFilter}
             onChange={(e) => setTypeFilter(e.target.value)}
@@ -130,9 +141,6 @@ export default function Accounts({ role }) {
             ))}
           </select>
         </div>
-        {role === "manager" && (
-          <Button onClick={() => console.log("Clicked!")}>Add Account</Button>
-        )}
       </div>
 
       {/* =================== GRID ====================== */}
@@ -150,6 +158,7 @@ export default function Accounts({ role }) {
                   <th>Status</th>
                   <th>Balance</th>
                   <th>Children</th>
+                  {["manager", "teller"].includes(role) && <th>Features</th>}
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -158,18 +167,48 @@ export default function Accounts({ role }) {
                 {filtered.map((acc) => (
                   <tr key={acc.id}>
                     <td>{acc.number}</td>
-                    <td>{acc.type?.name}</td>
+                    <td>{acc.type}</td>
 
                     <td>
                       <span
-                        className={`status-badge status-${acc.status?.name.toLowerCase()}`}
+                        className={`status-badge status-${acc.status?.toLowerCase()}`}
                       >
-                        {acc.status?.name}
+                        {acc.status}
                       </span>
                     </td>
 
                     <td>{parseFloat(acc.balance).toFixed(4)}</td>
                     <td>{(acc.children || []).length}</td>
+
+                    {/* ميزات الحساب */}
+                    {["manager", "teller"].includes(role) && (
+                      <td>
+                        <div className="features-list">
+                          {(acc.features || []).map((f) => (
+                            <span key={f} className="feature-badge">
+                              {f}
+                              <button
+                                className="remove-btn"
+                                onClick={() => removeFeature(acc.id, f)}
+                              >
+                                ✖
+                              </button>
+                            </span>
+                          ))}
+                        </div>
+                        <select
+                          onChange={(e) =>
+                            e.target.value && addFeature(acc.id, e.target.value)
+                          }
+                          defaultValue=""
+                        >
+                          <option value="">+ Add Feature</option>
+                          <option value="overdraft">Overdraft</option>
+                          <option value="insurance">Insurance</option>
+                          <option value="premium">Premium</option>
+                        </select>
+                      </td>
+                    )}
 
                     <td>
                       <button
@@ -179,12 +218,14 @@ export default function Accounts({ role }) {
                         View
                       </button>
 
-                      <button
-                        className="status-btn"
-                        onClick={() => openStatusModal(acc)}
-                      >
-                        Change Status
-                      </button>
+                      {role !== "teller" && (
+                        <button
+                          className="status-btn"
+                          onClick={() => openStatusModal(acc)}
+                        >
+                          Change Status
+                        </button>
+                      )}
                     </td>
                   </tr>
                 ))}
@@ -212,13 +253,6 @@ export default function Accounts({ role }) {
       )}
 
       {/* =================== STATUS MODAL ==================== */}
-      {/* {statusModal && (
-        <ChangeStatusModal
-          account={statusModal}
-          onClose={() => setStatusModal(null)}
-          onUpdated={refreshData}
-        />
-      )} */}
       {statusModalAcc && (
         <ChangeStatusModal
           account={statusModalAcc}
