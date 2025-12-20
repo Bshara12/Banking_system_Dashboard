@@ -4,19 +4,17 @@ import "./AdminLayout.css";
 import { useAuth } from "../hooks/useAuth";
 import { NavLink, Outlet, useLocation, useNavigate } from "react-router-dom";
 
-export default function AdminLayout({ children }) {
+export default function TellerLayout({ children }) {
   const [open, setOpen] = useState(true);
   const { user, logout } = useAuth();
   const location = useLocation();
   const [activePath, setActivePath] = useState(location.pathname);
   const navigate = useNavigate();
 
-  // مزامنة الحالة مع المسار الحالي دائماً
   useEffect(() => {
     setActivePath(location.pathname);
   }, [location.pathname]);
 
-  // دالة مساعدة لبناء الكلاس
   const itemClass = (path) =>
     `menu-item ${activePath === path ? "active" : ""} ${
       !open ? "collapsed" : ""
@@ -31,7 +29,7 @@ export default function AdminLayout({ children }) {
         className={`sidebar ${!open ? "collapsed" : ""}`}
       >
         <div className="sidebar-header">
-          <h2 className="sidebar-logo">{open ? "Admin Panel" : "AP"}</h2>
+          <h2 className="sidebar-logo">{open ? "Manager Panel" : "MP"}</h2>
 
           {/* زر السهم */}
           <motion.button
@@ -46,52 +44,36 @@ export default function AdminLayout({ children }) {
 
         <nav className="sidebar-menu">
           <NavLink
-            to="/admin"
+            to="/teller"
             end
-            className={itemClass("/admin")}
-            onClick={() => setActivePath("/admin")}
-          >
-            🏠 <span className="label">Dashboard</span>
-          </NavLink>
-
-          <NavLink
-            to="/admin/accounts"
-            className={itemClass("/admin/accounts")}
-            onClick={() => setActivePath("/admin/accounts")}
+            className={itemClass("/teller")}
+            onClick={() => setActivePath("/teller")}
           >
             💳 <span className="label">Accounts</span>
           </NavLink>
 
           <NavLink
-            to="/admin/transactions"
-            className={itemClass("/admin/transactions")}
-            onClick={() => setActivePath("/admin/transactions")}
+            to="/teller/new-transaction"
+            className={itemClass("/teller/new-transaction")}
+            onClick={() => setActivePath("/teller/new-transaction")}
+          >
+            💸 <span className="label">New Transaction</span>
+          </NavLink>
+
+          <NavLink
+            to="/teller/requests"
+            className={itemClass("/teller/requests")}
+            onClick={() => setActivePath("/teller/requests")}
+          >
+            📥 <span className="label">Transaction Requests</span>
+          </NavLink>
+
+          <NavLink
+            to="/teller/transactions"
+            className={itemClass("/teller/transactions")}
+            onClick={() => setActivePath("/teller/transactions")}
           >
             📊 <span className="label">Transactions</span>
-          </NavLink>
-
-          <NavLink
-            to="/admin/reports"
-            className={itemClass("/admin/reports")}
-            onClick={() => setActivePath("/admin/reports")}
-          >
-            📄 <span className="label">Reports</span>
-          </NavLink>
-
-          <NavLink
-            to="/admin/logs"
-            className={itemClass("/admin/logs")}
-            onClick={() => setActivePath("/admin/logs")}
-          >
-            📁 <span className="label">Logs</span>
-          </NavLink>
-
-          <NavLink
-            to="/admin/manager"
-            className={itemClass("/admin/manager")}
-            onClick={() => setActivePath("/admin/manager")}
-          >
-            🧑‍💼 <span className="label">Manager</span>
           </NavLink>
         </nav>
       </motion.div>

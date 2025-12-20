@@ -58,21 +58,7 @@ export default function TransactionRequests() {
     }
   };
 
-  return transactions.length == 0 ? (
-    <div className="accounts-grid">
-      <div
-        style={{
-          width: "100%",
-          height: "100vh",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        There is no transaction in this moment
-      </div>
-    </div>
-  ) : (
+  return (
     <div className="accounts-grid">
       {/* FILTERS */}
       <div className="filters">
@@ -116,27 +102,35 @@ export default function TransactionRequests() {
             </thead>
 
             <tbody>
-              {sortedTransactions.map((t) => (
-                <tr key={t.id}>
-                  <td>{t.employee_name}</td>
-                  <td>{t.type}</td>
-                  <td>{parseFloat(t.amount).toFixed(2)}</td>
-                  <td>{t.description}</td>
-                  <td>{t.account_number}</td>
-                  <td>{t.account_related_number}</td>
-                  <td>
-                    <button className="btn" onClick={() => handleApprove(t.id)}>
-                      Approve
-                    </button>
-                    <button
-                      className="status-btn"
-                      onClick={() => handleReject(t.id)}
-                    >
-                      Reject
-                    </button>
+              {transactions.length === 0 ? (
+                <tr>
+                  <td colSpan="7" style={{ textAlign: "center", padding: "2rem" }}>
+                    There is no transaction at this moment
                   </td>
                 </tr>
-              ))}
+              ) : (
+                sortedTransactions.map((t) => (
+                  <tr key={t.id}>
+                    <td>{t.employee_name}</td>
+                    <td>{t.type}</td>
+                    <td>{parseFloat(t.amount).toFixed(2)}</td>
+                    <td>{t.description}</td>
+                    <td>{t.account_number}</td>
+                    <td>{t.account_related_number}</td>
+                    <td>
+                      <button className="btn" onClick={() => handleApprove(t.id)}>
+                        Approve
+                      </button>
+                      <button
+                        className="status-btn"
+                        onClick={() => handleReject(t.id)}
+                      >
+                        Reject
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         )}

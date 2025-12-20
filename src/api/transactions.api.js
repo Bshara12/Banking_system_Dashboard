@@ -30,6 +30,7 @@ export const transactionsApi = {
     return axios.post(`transaction/${id}/reject`);
   },
 
+  
   // لو في API إضافي لاحقاً
   // getById(id) {
   //   return axios.get(`/transaction/${id}`);
