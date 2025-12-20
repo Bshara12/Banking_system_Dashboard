@@ -25,6 +25,7 @@ import {
 
 import "./AdminDashboard.css";
 
+
 export default function AdminDashboard({ role }) {
   const [health, setHealth] = useState(null);
   const [weekly, setWeekly] = useState([]);
@@ -73,6 +74,23 @@ export default function AdminDashboard({ role }) {
           <p className="stat-number">{todayTx ?? "-"}</p>
         </div>
 
+{/* <<<<<<< HEAD
+        <div className="stat-card">
+          <h3>Database</h3>
+          {health && <p className="stat-number">{health.db.status}</p>}
+        </div>
+
+        <div className="stat-card">
+          <h3>Queue Status</h3>
+          {health && (
+            <p className="stat-number">
+              {health.queue.status} ({health.queue.failed_jobs} fails)
+            </p>
+          )}
+        </div>
+      </div>
+
+======= */}
         {role === "admin" && (
           <>
             <div className="stat-card">
@@ -125,6 +143,67 @@ export default function AdminDashboard({ role }) {
         <div className="chart-card">
           <h3>Transactions Status</h3>
           <PieChart width={450} height={250}>
+            {/* <Pie
+          data={status}
+          dataKey="count"
+          nameKey="status"
+          cx="50%"
+          cy="50%"
+          outerRadius={80}
+          fill="#8884d8"
+          label
+        >
+          {status.map((entry, i) => (
+            <Cell
+              key={i}
+              fill={entry.status === "succeeded" ? "#4CAF50" : "#F44336"}
+            />
+          ))}
+        </Pie> */}
+
+            <Pie
+              data={status}
+              dataKey="count"
+              nameKey="status"
+              cx="50%"
+              cy="50%"
+              outerRadius={80}
+              label
+            >
+              {status.map((entry, i) => {
+                let color;
+                switch (entry.status) {
+                  case "succeeded":
+                    color = "#4CAF50"; 
+                    break;
+                  case "failed":
+                    color = "#F44336"; 
+                    break;
+                  case "pending":
+                    color = "#FFC107"; 
+                    break;
+                  case "canceled":
+                    color = "#9E9E9E"; 
+                    break;
+                  default:
+                    color = "#8884d8"; 
+                }
+                return <Cell key={i} fill={color} />;
+              })}
+            </Pie>
+            <Legend />
+            <Tooltip />
+          </PieChart>
+        </div>
+{/* =======
+            />
+          </LineChart>
+        </div>
+
+        {/* STATUS PIE CHART */}
+        {/* <div className="chart-card">
+          <h3>Transactions Status</h3>
+          <PieChart width={450} height={250}>
             <Pie
               data={status}
               dataKey="count"
@@ -145,7 +224,8 @@ export default function AdminDashboard({ role }) {
             <Legend />
             <Tooltip />
           </PieChart>
-        </div>
+        </div> */}
+
       </div>
 
       {/* =================== TOP CUSTOMERS =================== */}

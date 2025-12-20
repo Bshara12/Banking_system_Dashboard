@@ -42,20 +42,26 @@ export default function SupportLayout() {
 
         <nav className="sidebar-menu">
           <NavLink
-            to="/support"
-            end
-            className={itemClass("/support")}
-            onClick={() => setActivePath("/support")}
-          >
-            🏠 <span className="label">Dashboard</span>
-          </NavLink>
-
-          <NavLink
             to="/support/tickets"
             className={itemClass("/support/tickets")}
             onClick={() => setActivePath("/support/tickets")}
           >
             🎫 <span className="label">Tickets</span>
+          </NavLink>
+          <NavLink
+            to="/support/accounts"
+            className={itemClass("/support/accounts")}
+            onClick={() => setActivePath("/support/accounts")}
+          >
+            💳 <span className="label">Accounts</span>
+          </NavLink>
+          <NavLink
+            to="/support/transaction"
+            end
+            className={itemClass("/support/transaction")}
+            onClick={() => setActivePath("/support/transaction")}
+          >
+            📊 <span className="label">transaction</span>
           </NavLink>
         </nav>
       </motion.div>

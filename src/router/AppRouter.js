@@ -42,6 +42,9 @@ export default function AppRouter() {
       <Route path="/support" element={<SupportLayout />}>
         <Route path="/support/tickets" element={<SupportTicketsPage />} />
         <Route path="/support/tickets/:id" element={<TicketChatPage />} />
+        <Route path="/support/transaction" element={<Transactions />} />
+        <Route path="/support/accounts" element={<Accounts role="support" />} />
+
       </Route>
 
       <Route path="manager" element={<ManagerLayout />}>
