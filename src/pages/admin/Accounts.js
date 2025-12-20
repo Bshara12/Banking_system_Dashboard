@@ -41,44 +41,43 @@ export default function Accounts({ role }) {
         accountsApi.getTypes(),
         accountsApi.getStatuses(),
       ]);
-      setTypes(tRes.data);
-      setStatuses(sRes.data);
+      setTypes(tRes.data); // مثال: ["checking","savings","loan"]
+      setStatuses(sRes.data); // مثال: ["active","inactive"]
     } catch (err) {
       console.error("load meta", err);
     }
   }
 
   /** =============================
-   - FILTERING
-   =============================*/
+   * FILTERING
+   ============================= */
   const filtered = accounts.filter((a) => {
     const searchText = search.toLowerCase();
+
     if (search.length > 0) {
       return (
         a.number?.toLowerCase().includes(searchText) ||
-        a?.type?.name?.toLowerCase().includes(searchText) ||
-        (a?.customer?.name ?? "").toLowerCase().includes(searchText) ||
-        (a?.customer?.email ?? "").toLowerCase().includes(searchText)
+        (a.type ?? "").toLowerCase().includes(searchText)
       );
     }
 
-    if (typeFilter && +typeFilter !== a.type?.id) return false;
-    if (statusFilter && +statusFilter !== a.status?.id) return false;
+    if (typeFilter && typeFilter !== a.type) return false;
+    if (statusFilter && statusFilter !== a.status) return false;
 
     return true;
   });
 
   /** =============================
-   - HANDLERS
-   =============================*/
+   * HANDLERS
+   ============================= */
   function openStatusModal(acc) {
     setStatusModalAcc(acc);
   }
+
   function closeStatusModal() {
     setStatusModalAcc(null);
   }
 
-  // إضافة ميزة
   async function addFeature(accountId, feature) {
     try {
       await accountsApi.addFeature(accountId, feature);
@@ -89,7 +88,6 @@ export default function Accounts({ role }) {
     }
   }
 
-  // حذف ميزة
   async function removeFeature(accountId, feature) {
     try {
       await accountsApi.removeFeature(accountId, feature);
@@ -103,157 +101,149 @@ export default function Accounts({ role }) {
   return (
     <div className="accounts-container">
       {/* =================== TOP FILTERS ====================== */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <div className="accounts-topbar">
-          <input
-            placeholder="Search account number / owner / email..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="search-input"
-          />
-          <select
-            value={typeFilter}
-            onChange={(e) => setTypeFilter(e.target.value)}
-          >
-            <option value="">All types</option>
-            {types.map((t) => (
-              <option key={t.id} value={t.id}>
-                {t.name}
-              </option>
-            ))}
-          </select>
+      <div className="accounts-topbar">
+        <input
+          placeholder="Search account number..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="search-input"
+        />
 
-          <select
-            value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value)}
-          >
-            <option value="">All statuses</option>
-            {statuses.map((s) => (
-              <option key={s.id} value={s.id}>
-                {s.name}
-              </option>
-            ))}
-          </select>
-        </div>
+        {/* <select
+          value={typeFilter}
+          onChange={(e) => setTypeFilter(e.target.value)}
+        >
+          <option value="">All types</option>
+          {types.map((t) => (
+            <option key={t} value={t}>
+              {t}
+            </option>
+          ))}
+        </select> */}
+
+        <select
+          value={typeFilter}
+          onChange={(e) => setTypeFilter(e.target.value)}
+        >
+          <option value="">All types</option>
+          {types.map((t) => (
+            <option key={t.id} value={t.name}>
+              {t.name}
+            </option>
+          ))}
+        </select>
+
+        {/* <select
+          value={statusFilter}
+          onChange={(e) => setStatusFilter(e.target.value)}
+        >
+          <option value="">All statuses</option>
+          {statuses.map((s) => (
+            <option key={s} value={s}>
+              {s}
+            </option>
+          ))}
+        </select> */}
+
+        <select
+          value={statusFilter}
+          onChange={(e) => setStatusFilter(e.target.value)}
+        >
+          <option value="">All statuses</option>
+          {statuses.map((s) => (
+            <option key={s.id} value={s.name}>
+              {s.name}
+            </option>
+          ))}
+        </select>
       </div>
 
-      {/* =================== GRID ====================== */}
-      <div className="accounts-grid">
-        {/* TABLE */}
-        <div className="accounts-table">
-          {loading ? (
-            <div>Loading...</div>
-          ) : (
-            <table className="table">
-              <thead>
-                <tr>
-                  <th>Number</th>
-                  <th>Type</th>
-                  <th>Status</th>
-                  <th>Balance</th>
-                  <th>Children</th>
-                  {["manager", "teller"].includes(role) && <th>Features</th>}
-                  <th>Actions</th>
-                </tr>
-              </thead>
+      {/* =================== TABLE ====================== */}
+      <div className="accounts-table">
+        {loading ? (
+          <div>Loading...</div>
+        ) : (
+          <table className="table">
+            <thead>
+              <tr>
+                <th>Number</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Balance</th>
+                <th>Children</th>
+                {["manager", "teller"].includes(role) && <th>Features</th>}
+                <th>Actions</th>
+              </tr>
+            </thead>
 
-              <tbody>
-                {filtered.map((acc) => (
-                  <tr key={acc.id}>
-                    <td>{acc.number}</td>
-                    <td>{acc.type}</td>
+            <tbody>
+              {filtered.map((acc) => (
+                <tr key={acc.id}>
+                  <td>{acc.number}</td>
+                  <td>{acc.type}</td>
+                  <td>
+                    <span className={`status-badge status-${acc.status}`}>
+                      {acc.status}
+                    </span>
+                  </td>
+                  <td>{Number(acc.balance).toFixed(4)}</td>
+                  <td>{(acc.children || []).length}</td>
 
+                  {["manager", "teller"].includes(role) && (
                     <td>
-                      <span
-                        className={`status-badge status-${acc.status?.toLowerCase()}`}
+                      <div className="features-list">
+                        {(acc.features || []).map((f) => (
+                          <span key={f} className="feature-badge">
+                            {f}
+                            <button
+                              className="remove-btn"
+                              onClick={() => removeFeature(acc.id, f)}
+                            >
+                              ✖
+                            </button>
+                          </span>
+                        ))}
+                      </div>
+
+                      <select
+                        defaultValue=""
+                        onChange={(e) =>
+                          e.target.value && addFeature(acc.id, e.target.value)
+                        }
                       >
-                        {acc.status}
-                      </span>
+                        <option value="">+ Add Feature</option>
+                        <option value="overdraft">Overdraft</option>
+                        <option value="insurance">Insurance</option>
+                        <option value="premium">Premium</option>
+                      </select>
                     </td>
+                  )}
 
-                    <td>{parseFloat(acc.balance).toFixed(4)}</td>
-                    <td>{(acc.children || []).length}</td>
+                  <td>
+                    <button
+                      className="btn"
+                      onClick={() => setSelectedAccount(acc.id)}
+                    >
+                      View
+                    </button>
 
-                    {/* ميزات الحساب */}
-                    {["manager", "teller"].includes(role) && (
-                      <td>
-                        <div className="features-list">
-                          {(acc.features || []).map((f) => (
-                            <span key={f} className="feature-badge">
-                              {f}
-                              <button
-                                className="remove-btn"
-                                onClick={() => removeFeature(acc.id, f)}
-                              >
-                                ✖
-                              </button>
-                            </span>
-                          ))}
-                        </div>
-                        <select
-                          onChange={(e) =>
-                            e.target.value && addFeature(acc.id, e.target.value)
-                          }
-                          defaultValue=""
-                        >
-                          <option value="">+ Add Feature</option>
-                          <option value="overdraft">Overdraft</option>
-                          <option value="insurance">Insurance</option>
-                          <option value="premium">Premium</option>
-                        </select>
-                      </td>
-                    )}
-
-                    <td>
+                    {role !== "support" && (
                       <button
-                        className="btn"
-                        onClick={() => setSelectedAccount(acc.id)}
-                      >
-                        View
-                      </button>
-
-                      {role !== "teller" &&
-                        {
-                          /* <button
                         className="status-btn"
                         onClick={() => openStatusModal(acc)}
                       >
                         Change Status
-                      </button> */
-                        }}
-                      {role !== "support" && (
-                        <button
-                          className="status-btn"
-                          onClick={() => openStatusModal(acc)}
-                        >
-                          Change Status
-                        </button>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
-        </div>
-
-        {/* SUMMARY CARD */}
-        <div className="accounts-side">
-          <div className="card">
-            <h4>Summary</h4>
-            <p>Total accounts: {accounts.length}</p>
-            <p>Filtered: {filtered.length}</p>
-          </div>
-        </div>
+                      </button>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
 
-      {/* =================== ACCOUNT DETAILS ==================== */}
+      {/* =================== DETAILS ==================== */}
       {selectedAccount && (
         <AccountDetails
           id={selectedAccount}
@@ -261,7 +251,6 @@ export default function Accounts({ role }) {
         />
       )}
 
-      {/* =================== STATUS MODAL ==================== */}
       {statusModalAcc && (
         <ChangeStatusModal
           account={statusModalAcc}
